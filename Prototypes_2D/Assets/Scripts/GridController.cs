@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
-public class GridController : MonoBehaviour
-{
+public class GridController : MonoBehaviour {
     private Grid grid;
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private Tilemap interactiveMap;
@@ -23,10 +22,12 @@ public class GridController : MonoBehaviour
         Vector3Int mousePosition = GetMousePosition();
 
         // Check for mouse movement
-        if (!mousePosition.Equals(previousMousePosition)) {
-            // Update hover tile
+        if (!mousePosition.Equals(previousMousePosition) && tileMap.HasTile(mousePosition)) {
+            // Update hover tile if over tilmap
+
             interactiveMap.SetTile(previousMousePosition, null);
             interactiveMap.SetTile(mousePosition, hoverTile);
+
             // update mouse position
             previousMousePosition = mousePosition;
         }
