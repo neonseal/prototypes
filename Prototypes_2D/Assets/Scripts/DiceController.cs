@@ -1,47 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Linq;
 
 public class DiceController : MonoBehaviour {
     [Header("Image Variables")]
-    [SerializeField] Sprite[] diceFaces;
-    [SerializeField] Image selectedDiceImage;
-    [SerializeField] Sprite sprite;
+    [SerializeField] private Sprite[] diceFaces;
+    [SerializeField] private SpriteRenderer[] diceSprites;
 
     [Header("Dice Roll Variables")]
-    [SerializeField] float rollAnimationTimer = 2f;
-    [SerializeField] int rollValue = 0;
-    private float rollTimer;
-    private bool isRolling;
+    [SerializeField] private float rollAnimationTimer = 1f;
+    [SerializeField] private int[] rollValues;
+    [SerializeField] private float yieldTime = 0.075f;
+    private float rollTimer = 0f;
 
     private void Awake() {
-        selectedDiceImage = GetComponentInChildren<Image>();
-        rollTimer = rollAnimationTimer;
-        isRolling = false;
+        diceSprites = GetComponentsInChildren<SpriteRenderer>();
+        rollValues = new int[] { 0, 0, 0 };
     }
 
-    private void Update() {
-        if (isRolling) {
-            RollDice();
+    private IEnumerator RollDice() {
+        int diceFaceIndex;
+        int diceIndex;
+        while (rollTimer < rollAnimationTimer) {
+            foreach (SpriteRenderer dice in diceSprites) {
+                diceFaceIndex = Random.Range(0, 6);
+                diceIndex = System.Array.IndexOf(diceSprites, dice);
+                dice.sprite = diceFaces[diceFaceIndex];
+                rollValues[diceIndex] = diceFaceIndex + 1;
+                Debug.Log(rollValues[0]);
+            }
+            yield return new WaitForSeconds(yieldTime);
+            rollTimer += (yieldTime);
         }
-    }
 
-
-    private void RollDice() {
-        if (rollTimer <= 0f) {
-            isRolling = false;
-            rollTimer = rollAnimationTimer;
-            selectedDiceImage.sprite = sprite;
-        }
-
-        int diceFaceIndex = Random.Range(0, 6);
-        selectedDiceImage.sprite = diceFaces[diceFaceIndex];
-        rollTimer -= 0.1f;
-        Debug.Log(diceFaces[diceFaceIndex]);
+        rollTimer = 0f;
     }
 
     public void StartRoll() {
-        isRolling = true;
+        StartCoroutine("RollDice");
+        /*Debug.Log(rollValues[0]);
+        Debug.Log(rollValues[1]);
+        Debug.Log(rollValues[2]);*/
     }
 }
