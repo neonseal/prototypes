@@ -28,7 +28,6 @@ public class DiceController : MonoBehaviour {
                 diceIndex = System.Array.IndexOf(diceSprites, dice);
                 dice.sprite = diceFaces[diceFaceIndex];
                 rollValues[diceIndex] = diceFaceIndex + 1;
-                Debug.Log(rollValues[0]);
             }
             yield return new WaitForSeconds(yieldTime);
             rollTimer += (yieldTime);
@@ -39,8 +38,5 @@ public class DiceController : MonoBehaviour {
 
     public void StartRoll() {
         StartCoroutine("RollDice");
-        /*Debug.Log(rollValues[0]);
-        Debug.Log(rollValues[1]);
-        Debug.Log(rollValues[2]);*/
     }
 }
