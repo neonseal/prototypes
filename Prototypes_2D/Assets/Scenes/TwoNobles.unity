@@ -1575,7 +1575,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceFaces: []
-  diceImage: {fileID: 0}
+  selectedDiceImage: {fileID: 0}
+  sprite: {fileID: 0}
+  rollAnimationTimer: 4
+  rollValue: 0
 --- !u!4 &1029100152
 Transform:
   m_ObjectHideFlags: 0
@@ -1643,8 +1646,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429d22f5f6075474bbf4c0300c22830d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceFaces: []
-  diceImage: {fileID: 31754388}
+  diceFaces:
+  - {fileID: -579666318, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  - {fileID: -1842471524, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  - {fileID: -1488628793, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  - {fileID: -57579496, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  - {fileID: -1100387975, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  - {fileID: 1157773813, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  selectedDiceImage: {fileID: 31754388}
+  sprite: {fileID: 1157773813, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
+  rollAnimationTimer: 2
+  rollValue: 0
 --- !u!114 &1115112849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1658,7 +1670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

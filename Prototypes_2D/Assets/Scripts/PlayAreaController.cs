@@ -11,12 +11,12 @@ public class PlayAreaController : MonoBehaviour
     private void Awake() {
         playerDice = GetComponentsInChildren<DiceController>();
         playButton = GetComponentInChildren<Button>();
-        playButton.onClick.AddListener(RollDice);
+        playButton.onClick.AddListener(StartNewRoll);
     }
 
-    private void RollDice() {
+    private void StartNewRoll() { 
         foreach (DiceController dice in playerDice) {
-            dice.RollDice();
+            dice.StartRoll();
         }
     }
 }
