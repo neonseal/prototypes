@@ -1361,7 +1361,7 @@ MonoBehaviour:
   - {fileID: -1100387975, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
   - {fileID: 1157773813, guid: 5e7a1814c720f5741bb3aec49a9c3071, type: 3}
   diceSprites: []
-  rollAnimationTimer: 1
+  rollAnimationTimer: 0.75
   rollValues: 
   yieldTime: 0.075
 --- !u!1001 &2002377158

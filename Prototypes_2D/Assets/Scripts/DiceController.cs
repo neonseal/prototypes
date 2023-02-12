@@ -30,7 +30,7 @@ public class DiceController : MonoBehaviour {
                 rollValues[diceIndex] = diceFaceIndex + 1;
             }
             yield return new WaitForSeconds(yieldTime);
-            rollTimer += (yieldTime);
+            rollTimer += Time.fixedDeltaTime;
         }
 
         rollTimer = 0f;
