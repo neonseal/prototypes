@@ -1,7 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.Events;
+
+public class Dice {
+    public int value;
+    public bool inPlay;
+    public int betIndex;
+    public SpriteRenderer spriteRenderer;
+}
 
 public class DiceController : MonoBehaviour {
     [Header("Image Variables")]
@@ -10,24 +17,36 @@ public class DiceController : MonoBehaviour {
 
     [Header("Dice Roll Variables")]
     [SerializeField] private float rollAnimationTimer = 1f;
-    [SerializeField] private int[] rollValues;
+    [SerializeField] private Dice[] dicePool;
     [SerializeField] private float yieldTime = 0.075f;
     private float rollTimer = 0f;
 
     private void Awake() {
         diceSprites = GetComponentsInChildren<SpriteRenderer>();
-        rollValues = new int[] { 0, 0, 0 };
+        dicePool = new Dice[3];
+        
+        for (int i = 0; i < 3; i++) {
+            Dice dice = new Dice();
+            dice.spriteRenderer = diceSprites[i];
+            dicePool[i] = dice;
+        }
+    }
+
+    private void OnEnable() {
+        EventManager.StartListening("StartRoll", StartRoll);
+    }
+
+    private void OnDisable() {
+        EventManager.StopListening("StartRoll", StartRoll);
     }
 
     private IEnumerator RollDice() {
         int diceFaceIndex;
-        int diceIndex;
         while (rollTimer < rollAnimationTimer) {
-            foreach (SpriteRenderer dice in diceSprites) {
+            foreach (Dice dice in dicePool) {
                 diceFaceIndex = Random.Range(0, 6);
-                diceIndex = System.Array.IndexOf(diceSprites, dice);
-                dice.sprite = diceFaces[diceFaceIndex];
-                rollValues[diceIndex] = diceFaceIndex + 1;
+                dice.spriteRenderer.sprite = diceFaces[diceFaceIndex];
+                dice.value = diceFaceIndex + 1;
             }
             yield return new WaitForSeconds(yieldTime);
             rollTimer += Time.fixedDeltaTime;
